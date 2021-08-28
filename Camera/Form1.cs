@@ -56,6 +56,22 @@ namespace Camera
             }
         }
 
+        private void button1_Clicked(object sender, EventArgs e)
+        {
+            Button clickedButton = (Button)sender;
+            if (clickedButton.Text.Equals("Start"))
+            {
+                CaptureCamera();
+                clickedButton.Text = "Stop";
+                isCameraRunning = true;
+            } else
+            {
+                capture.Release();
+                clickedButton.Text = "Start";
+                isCameraRunning = false;
+            }
+        }
+
         public void CreatePictureBoxDelegate(object sender, EventArgs e)
         {
             PictureBox newBox = new PictureBox();
@@ -66,7 +82,8 @@ namespace Camera
         public void CreateButtonDelegate(object sender, EventArgs e)
         {
             Button capture = MakeButton("Capture", new Point(50, 350), new Size(300, 80));
-            Button record = MakeButton("Start", new Point(450, 350), new Size(300, 80));
+            Button startBtn = MakeButton("Start", new Point(450, 350), new Size(300, 80));
+            startBtn.Click += new System.EventHandler(this.button1_Clicked);
 
         }
 
